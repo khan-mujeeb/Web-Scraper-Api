@@ -38,7 +38,12 @@ async function scrapeData() {
 const app = express();
 
 app.get("/", async (req, res) => {
-    res.send("Welcome to the scraper API");
+    try {
+        const scrapedData = await scrapeData(); // Await the scrapeData function here
+        res.json(scrapedData);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to scrape data" });
+    }
 });
 
 
