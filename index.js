@@ -37,6 +37,11 @@ async function scrapeData() {
 
 const app = express();
 
+app.get("/", async (req, res) => {
+    res.send("Welcome to the scraper API");
+});
+
+
 app.get("/scrape", async (req, res) => {
     console.log("hello");
     try {
