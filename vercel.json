@@ -7,9 +7,7 @@
         }
     ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/scrape"
-        }
+        { "src": "/scrape", "dest": "/scrape" }, 
+        { "src": "/(.*)", "dest": "/scrape" }    
     ]
 }
