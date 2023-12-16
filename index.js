@@ -1,11 +1,10 @@
 // server.js
 const express = require("express");
-// const scrapeData = require("./scrapper");
 const puppeteer = require("puppeteer");
 console.log("Scraper.js");
+
 async function scrapeData() {
     try {
-        console.log("hello");
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
         await page.goto("https://medium.com/@mujeebkhan1831");
@@ -14,7 +13,6 @@ async function scrapeData() {
             const fruitsList = document.body.querySelectorAll("h2");
             let fruits = [];
             fruitsList.forEach((value) => {
-                console.log(value.innerText);
                 fruits.push(value.innerText);
             });
             return fruits;
@@ -24,28 +22,25 @@ async function scrapeData() {
             const imgList = document.body.querySelectorAll("img");
             let imgs = [];
             imgList.forEach((value) => {
-                console.log(value.src);
                 imgs.push(value.src);
             });
             return imgs;
         });
 
-        console.log(allFruits);
-        console.log(allImgs);
         await browser.close();
-        console.log(allFruits);
         return { allImgs, allFruits };
     } catch (error) {
         console.error(error);
         return { error: "Error occurred during scraping" };
     }
 }
+
 const app = express();
 
 app.get("/scrape", async (req, res) => {
     console.log("hello");
     try {
-        const scrapedData = scrapeData();
+        const scrapedData = await scrapeData(); // Await the scrapeData function here
         res.json(scrapedData);
     } catch (error) {
         res.status(500).json({ error: "Failed to scrape data" });
@@ -57,5 +52,4 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-// Export the Express API
 module.exports = app;

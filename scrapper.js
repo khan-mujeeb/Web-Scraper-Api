@@ -4,13 +4,15 @@ const puppeteer = require("puppeteer");
 console.log("Scraper.js");
 async function scrapeData() {
     try {
-        console.log("hello");
+      console.log("hello");
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
         await page.goto("https://medium.com/@mujeebkhan1831");
 
+
         let allFruits = await page.evaluate(() => {
-            const fruitsList = document.body.querySelectorAll("h2");
+            const fruitsList =
+                document.body.querySelectorAll("h2");
             let fruits = [];
             fruitsList.forEach((value) => {
                 console.log(value.innerText);
@@ -20,7 +22,8 @@ async function scrapeData() {
         });
 
         let allImgs = await page.evaluate(() => {
-            const imgList = document.body.querySelectorAll("img");
+            const imgList =
+                document.body.querySelectorAll("img");
             let imgs = [];
             imgList.forEach((value) => {
                 console.log(value.src);
